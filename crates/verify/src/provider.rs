@@ -122,6 +122,7 @@ impl FromStr for VerificationProviderType {
             "s" | "sourcify" => Ok(VerificationProviderType::Sourcify),
             "b" | "blockscout" => Ok(VerificationProviderType::Blockscout),
             "o" | "oklink" => Ok(VerificationProviderType::Oklink),
+            "r" | "routescan" => Ok(VerificationProviderType::Routescan),
             _ => Err(format!("Unknown provider: {s}")),
         }
     }
@@ -142,6 +143,9 @@ impl fmt::Display for VerificationProviderType {
             VerificationProviderType::Oklink => {
                 write!(f, "oklink")?;
             }
+            VerificationProviderType::Routescan => {
+                write!(f, "routescan")?;
+            }
         };
         Ok(())
     }
@@ -154,6 +158,7 @@ pub enum VerificationProviderType {
     Sourcify,
     Blockscout,
     Oklink,
+    Routescan,
 }
 
 impl VerificationProviderType {
@@ -172,7 +177,12 @@ impl VerificationProviderType {
             VerificationProviderType::Blockscout => {
                 Ok(Box::<EtherscanVerificationProvider>::default())
             }
-            VerificationProviderType::Oklink => Ok(Box::<EtherscanVerificationProvider>::default()),
+            VerificationProviderType::Oklink => {
+                Ok(Box::<EtherscanVerificationProvider>::default())
+            }
+            VerificationProviderType::Routescan => {
+                Ok(Box::<EtherscanVerificationProvider>::default())
+            }
         }
     }
 }
